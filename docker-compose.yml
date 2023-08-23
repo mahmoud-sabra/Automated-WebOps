@@ -6,11 +6,12 @@ services:
       build:
         context: ./frontend/
         dockerfile: Dockerfile
-      depends_on:
-        - back
+      
     back:
       ports:
       - 4567:4567
       build:
         context: ./ruby/   
         dockerfile: Dockerfile
+      depends_on:
+        - front

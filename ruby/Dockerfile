@@ -17,5 +17,5 @@ COPY . .
 EXPOSE 4567
 
 # Command to run the Sinatra application
-CMD ["ruby", "backend.rb"]
+CMD ["ruby", "backend.rb","-o", "0.0.0.0"]
 
