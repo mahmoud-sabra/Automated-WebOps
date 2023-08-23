@@ -1,0 +1,16 @@
+version: '3.8'
+services:
+    front:
+      ports:
+        - 3000:3000
+      build:
+        context: ./frontend/
+        dockerfile: Dockerfile
+      depends_on:
+        - back
+    back:
+      ports:
+      - 4567:4567
+      build:
+        context: ./ruby/   
+        dockerfile: Dockerfile
