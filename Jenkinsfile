@@ -1,26 +1,22 @@
 pipeline {
     agent any
-    
     triggers {
         pollSCM '* * * * *'
     }
     
     stages {
-        stage('Build') {
+        stage('Clone Repository') {
             steps {
-                script {
-                    def frontImage = docker.build("ma7moudsabra/rubytask_front:${env.BUILD_NUMBER}", "./front")
-                    def backImage = docker.build("ma7moudsabra/rubytask_back:${env.BUILD_NUMBER}", "./back")
-                }
+                checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'repo']], userRemoteConfigs: [[url: 'https://github.com/mahmoud-sabra/Docker-test-api.git']]])
             }
         }
         
-        stage('Push to Docker Hub') {
+        stage('Build and Push Images') {
             steps {
                 script {
-                    docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
-                        frontImage.push()
-                        backImage.push()
+                    sh 'docker-compose -f repo/docker-compose.yml build'
+                    docker.withRegistry('https://registry.hub.docker.com', 'dockerhub') {
+                        sh 'docker-compose -f repo/docker-compose.yml push'
                     }
                 }
             }
