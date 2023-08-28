@@ -9,29 +9,30 @@ pipeline {
         TAG = "${BUILD_NUMBER}"
     }
     stages {
-        stage('Clone Repository') {
-            steps {
-                checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'repo']], userRemoteConfigs: [[url: 'https://github.com/mahmoud-sabra/Docker-test-api.git']]])
-            }
-        }
+        // stage('Clone Repository') {
+        //     steps {
+        //         checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'repo']], userRemoteConfigs: [[url: 'https://github.com/mahmoud-sabra/Docker-test-api.git']]])
+        //     }
+        // }
         
         stage('Build frontend') {
             steps {
                 script {
-                    sh 'docker ps -a'
-                    sh 'docker build -t $FRONTIMAGE_NAME:$TAG ./frontend'
-                    sh 'docker ps -a'
-                   
+                    sh '''
+                    docker build -t $FRONTIMAGE_NAME:$TAG ./frontend/
+                    docker ps -a
+                   '''
                 }
             }
         }
         stage('Build backend') {
             steps {
                 script {
-                    sh 'docker ps -a'
-                    sh 'docker build -t $BACKENDIMAGE_NAME:$TAG ./ruby'
-                    sh 'docker ps -a'
-                   
+                    sh ''' 
+                    docker ps -a
+                    docker build -t $BACKENDIMAGE_NAME:$TAG ./ruby/
+                    docker ps -a
+                   '''
                 }
             }
         }
@@ -39,19 +40,21 @@ pipeline {
             steps {
                 script {
                      docker.withRegistry('https://registry.hub.docker.com', 'dockerhub') {
-                        sh 'docker push $FRONTIMAGE_NAME:$TAG'
-                        sh 'docker push $BACKENDIMAGE_NAME:$TAG'
+                        sh '''
+                        docker push $FRONTIMAGE_NAME:$TAG
+                        sh 'docker push $BACKENDIMAGE_NAME:$TAG
+                        '''
                     }
                    
                 }
             }
         }
     
-    post {
+// post
         
-        always {
-            cleanWs()
-        }
-    }
+//         always {
+//             cleanWs()
+//         }
+
 }
 }
