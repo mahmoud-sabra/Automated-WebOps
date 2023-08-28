@@ -31,7 +31,7 @@ pipeline {
     stage('Push front & back') {
             steps {
                 script {
-                     docker.withRegistry('https://registry.hub.docker.com', 'DOCKERHUB_CREDENTIALS') {
+                     docker.withRegistry('https://registry.hub.docker.com', DOCKERHUB_CREDENTIALS) {
                         sh '''
                         docker push $FRONTIMAGE_NAME:$TAG
                         docker push $BACKENDIMAGE_NAME:$TAG
