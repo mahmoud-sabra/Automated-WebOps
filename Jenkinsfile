@@ -32,7 +32,7 @@ pipeline {
             steps {
                 script {
                     sh '''
-                    docker login -u ${DOCKERHUB_CREDENTIALS_USR} -p ${DOCKERHUB_CREDENTIALS_PSW}
+                    echo ${DOCKERHUB_CREDENTIALS_PSW} | docker login -u ${DOCKERHUB_CREDENTIALS_USR} --password-stdin 
                     docker push $FRONTIMAGE_NAME:$TAG
                     docker push $BACKENDIMAGE_NAME:$TAG
                     '''
