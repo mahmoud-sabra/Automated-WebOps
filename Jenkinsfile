@@ -33,6 +33,7 @@ pipeline {
                 script {
                      docker.withRegistry('https://registry.hub.docker.com', DOCKERHUB_CREDENTIALS) {
                         sh '''
+                        echo ${DOCKERHUB_CREDENTIALS_PSW} | docker login -u ${DOCKERHUB_CREDENTIALS_USR} --password-stdin"
                         docker push $FRONTIMAGE_NAME:$TAG
                         docker push $BACKENDIMAGE_NAME:$TAG
                         '''
