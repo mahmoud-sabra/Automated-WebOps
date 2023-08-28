@@ -15,37 +15,34 @@ pipeline {
                 script {
                     sh '''
                     docker build -t $FRONTIMAGE_NAME:$TAG ./frontend/
-                   '''
+                    '''
                 }
             }
         }
         stage('Build backend') {
             steps {
                 script {
-                    sh ''' 
+                    sh '''
                     docker build -t $BACKENDIMAGE_NAME:$TAG ./ruby/
-                   '''
+                    '''
                 }
             }
         }
-    stage('Push front & back') {
+        stage('Push front & back') {
             steps {
                 script {
-                        sh '''
-                        docker login -u ${DOCKERHUB_CREDENTIALS_USR} -p ${DOCKERHUB_CREDENTIALS_PSW}
-                        docker push $FRONTIMAGE_NAME:$TAG
-                        docker push $BACKENDIMAGE_NAME:$TAG
-                        '''
-                    }
-                   
+                    sh '''
+                    docker login -u ${DOCKERHUB_CREDENTIALS_USR} -p ${DOCKERHUB_CREDENTIALS_PSW}
+                    docker push $FRONTIMAGE_NAME:$TAG
+                    docker push $BACKENDIMAGE_NAME:$TAG
+                    '''
                 }
             }
-        
-    
-    post
+        }
+    }
+    post {
         always {
             cleanWs()
         }
-
-}
+    }
 }
