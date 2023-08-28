@@ -42,7 +42,7 @@ pipeline {
                      docker.withRegistry('https://registry.hub.docker.com', 'dockerhub') {
                         sh '''
                         docker push $FRONTIMAGE_NAME:$TAG
-                        sh 'docker push $BACKENDIMAGE_NAME:$TAG
+                        docker push $BACKENDIMAGE_NAME:$TAG
                         '''
                     }
                    
