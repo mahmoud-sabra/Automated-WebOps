@@ -42,11 +42,11 @@ pipeline {
             }
         
     
-// post
+post
         
-//         always {
-//             cleanWs()
-//         }
+        always {
+            cleanWs()
+        }
 
 }
 }
