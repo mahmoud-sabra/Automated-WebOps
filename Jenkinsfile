@@ -4,9 +4,9 @@ pipeline {
         pollSCM '* * * * *'
     }
     environment {
-            FRONTIMAGE_NAME:ma7moudsabra/frontend
-            BACKENDIMAGE_NAME:ma7moudsabra/backend
-            TAG:${BUILD_NUMBER}
+        FRONTIMAGE_NAME = 'ma7moudsabra/frontend'
+        BACKENDIMAGE_NAME = 'ma7moudsabra/backend'
+        TAG = "${BUILD_NUMBER}"
     }
     stages {
         stage('Clone Repository') {
@@ -53,4 +53,5 @@ pipeline {
             cleanWs()
         }
     }
+}
 }
