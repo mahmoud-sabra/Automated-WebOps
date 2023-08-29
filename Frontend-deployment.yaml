@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: front-container
-          image: ma7moudsabra/frontend:33
+          image: ma7moudsabra/frontend:35
           ports: 
            - containerPort: 3000
           resources:
