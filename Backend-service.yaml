@@ -5,8 +5,9 @@ metadata:
 spec:
   selector:
     app: ruby-app  # Match the labels in your Deployment
-  type: NodePort
+  type: ClusterIP
   ports:
     - protocol: TCP
       port: 4567  # Port exposed within the cluster
       targetPort: 4567  # Port your container is listening on
+      

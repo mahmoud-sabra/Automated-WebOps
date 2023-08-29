@@ -1,8 +1,8 @@
 pipeline {
     agent any
-    triggers {
-        pollSCM '* * * * *'
-    }
+    // triggers {
+    //     pollSCM '* * * * *'
+    // }
     environment {
         DOCKERHUB_CREDENTIALS = credentials('dockerhub')
         FRONTIMAGE_NAME = 'ma7moudsabra/frontend'
