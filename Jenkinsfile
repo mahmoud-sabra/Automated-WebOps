@@ -39,10 +39,10 @@ pipeline {
                 }
             }
         }
-    }
-    post {
-        always {
-            cleanWs()
-        }
+//     }
+//     post {
+//         always {
+//             cleanWs()  To clean images after pushing it
+//         }
     }
 }
