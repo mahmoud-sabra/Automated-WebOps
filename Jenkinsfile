@@ -44,9 +44,9 @@ pipeline {
                 script {
                     sh '''
                     
-                    sed -i 's|image: ma7moudsabra/frontend:.*|image: $FRONTIMAGE_NAME:$TAG|' ./Frontend-deployment.yaml
+                    sed -i 's|image: ma7moudsabra/frontend:.*|image:' "$FRONTIMAGE_NAME:$TAG" '|' ./Frontend-deployment.yaml
 
-                    sed -i 's|image: ma7moudsabra/backend:.*|image: $BACKENDIMAGE_NAME:$TAG|' ./Backend-deployment.yaml
+                    sed -i 's|image: ma7moudsabra/backend:.*|image: ' "$BACKENDIMAGE_NAME:$TAG" '|' ./Backend-deployment.yaml
                 '''                
                 }
             }
