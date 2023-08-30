@@ -48,17 +48,20 @@ pipeline {
                     cat Frontend-deployment.yaml              
                     sed -i 's|image: ma7moudsabra/frontend:.*|image: '"$FRONTIMAGE_NAME:$TAG"'|' ./Frontend-deployment.yaml
                     sed -i 's|image: ma7moudsabra/backend:.*|image: '"$BACKENDIMAGE_NAME:$TAG"'|' ./Backend-deployment.yaml
-                    cat Frontend-deployment.yaml              
+                    cat Frontend-deployment.yaml   
+                             
                 '''                
                 }
             }
         }
-        stage('Roll back'){
+        stage('Roll out'){
             steps{
                 script {
                     sh '''
-                    kubectl rollout undo deployments/frontend-deployment
-                    kubectl rollout undo deployments/backend-deployment
+                    kubectl apply -f Frontend-deployment.yaml
+                    kubectl apply -f Backend-deployment.yaml 
+                    kubectl rollout status deployments/frontend-deployment
+                    kubectl rollout status deployments/backend-deployment
                     '''
                 }
             }
