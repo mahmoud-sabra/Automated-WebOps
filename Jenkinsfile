@@ -14,6 +14,7 @@ pipeline {
             steps {
                 script {
                     sh '''
+                    pwd
                     docker build -t $FRONTIMAGE_NAME:$TAG ./frontend/
                     '''
                 }
@@ -43,9 +44,11 @@ pipeline {
             steps{
                 script {
                     sh '''
-                    
+                    pwd && ls -la
+                    cat Frontend-deployment.yaml              
                     sed -i 's|image: ma7moudsabra/frontend:.*|image: '"$FRONTIMAGE_NAME:$TAG"'|' ./Frontend-deployment.yaml
                     sed -i 's|image: ma7moudsabra/backend:.*|image: '"$BACKENDIMAGE_NAME:$TAG"'|' ./Backend-deployment.yaml
+                    cat Frontend-deployment.yaml              
                 '''                
                 }
             }
