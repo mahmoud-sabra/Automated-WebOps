@@ -39,6 +39,28 @@ pipeline {
                 }
             }
         }
+        stage('Update Images'){
+            steps{
+                script {
+                    sh '''
+                    
+                    sed -i 's|image: ma7moudsabra/frontend:.*|image: ${$FRONTIMAGE_NAME}:${TAG}|' ./Frontend-deployment.yaml"
+
+                    sed -i 's|image: ma7moudsabra/backend:.*|image: ${BACKENDIMAGE_NAME}:${TAG}|' ./Backend-deployment.yaml"
+                '''                
+                }
+            }
+        }
+        stage('Roll back'){
+            steps{
+                script {
+                    sh '''
+                    kubectl rollout undo deployments/frontend-deployment
+                    kubectl rollout undo deployments/backend-deployment
+                    '''
+                }
+            }
+        }
 //     }
 //     post {
 //         always {
