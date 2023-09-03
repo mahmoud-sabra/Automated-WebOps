@@ -27,13 +27,14 @@ spec:
           volumeMounts:
             - name: nginx-logs-pvc
               mountPath: /var/log/nginx
-      volumes:
-        - name: nginx-logs-pvc
-          persistentVolumeClaim:
-            claimName: nginx-logs-pvc
-      env:
+     
+          env:
             - name: my-configmap
               valueFrom:
                 configMapKeyRef:
                   name: my-configmap
                   key: REACT_APP_BACKEND_URL
+      volumes:
+        - name: nginx-logs-pvc
+          persistentVolumeClaim:
+            claimName: nginx-logs-pvc
