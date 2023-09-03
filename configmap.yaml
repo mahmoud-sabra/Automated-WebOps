@@ -3,5 +3,5 @@ kind: ConfigMap
 metadata:
   name: my-configmap  
 data:
-  REACT_APP_BACKEND_URL:"http://192.168.49.2:30015/health"
+  REACT_APP_BACKEND_URL: "http://192.168.49.2:30015/health"
  
