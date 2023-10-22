@@ -13,9 +13,8 @@ This project aims to automate Web Operations (WebOps) tasks for streamlined and 
 ## Prerequisites
 Ensure the following prerequisites are met before using this project:
 
-- [Python](https://www.python.org/) (version 3.7 or higher)
 - [Docker](https://www.docker.com/) (latest version)
-- [Kubernetes](https://kubernetes.io/) (optional, depending on specific use cases)
+- [Kubernetes](https://kubernetes.io/) (Minikube or what you prefer)
 
 ## Installation
 
